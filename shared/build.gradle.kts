@@ -20,9 +20,28 @@ kotlin {
             baseName = "shared"
         }
     }
-    
+
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                //Ktor
+                implementation(Ktor.clientCore)
+                implementation(Ktor.clientJson)
+                implementation(Ktor.clientLogging)
+                implementation(Ktor.clientSerialization)
+                implementation(Ktor.contentNegotiation)
+                implementation(Ktor.json)
+                //Realm
+                implementation(Realm.realm)
+                //kotlinx
+                implementation(Kotlinx.serializationCore)
+                implementation(Kotlinx.datetime)
+
+                //Coroutines
+                implementation(Coroutines.coroutines)
+
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -34,6 +53,9 @@ kotlin {
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
+            dependencies {
+                implementation(Ktor.clientIos)
+            }
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
