@@ -10,9 +10,9 @@ class GetAllCoinsViewModel(
     private val getAllCoinsUseCase: GetAllCoinsUseCase
 ) : ViewModel() {
 
-     fun getAllCoins() {
+    fun getAllCoins(start: Int, limit: Int) {
         viewModelScope.launch {
-            getAllCoinsUseCase.invoke().collect{
+            getAllCoinsUseCase.invoke(start, limit).collect {
                 println(it.toString())
             }
         }

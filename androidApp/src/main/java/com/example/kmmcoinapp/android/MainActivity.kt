@@ -39,7 +39,7 @@ fun Greeting(
     viewModel: GetAllCoinsViewModel = getViewModel()
 ) {
     Text(text = text)
-    println("TEST :: " + viewModel.getAllCoins())
+     viewModel.getAllCoins(1, 10)
 
 }
 

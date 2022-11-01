@@ -7,9 +7,9 @@ class GetAllCoinsUseCase(
     private val repository: CoinRepository
 ) {
 
-    operator fun invoke() = flow {
+    operator fun invoke(start:Int , limit:Int) = flow {
 
-        val response = repository.getAllCoins()
+        val response = repository.getAllCoins(start, limit)
         emit(response)
 
     }
