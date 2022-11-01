@@ -1,15 +1,16 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.devtools.ksp") version "1.7.10-1.0.6"
 }
 
 android {
     namespace = "com.example.kmmcoinapp.android"
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         applicationId = "com.example.kmmcoinapp.android"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
     }
@@ -33,10 +34,41 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.2.1")
-    implementation("androidx.compose.ui:ui-tooling:1.2.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.2.1")
-    implementation("androidx.compose.foundation:foundation:1.2.1")
-    implementation("androidx.compose.material:material:1.2.1")
-    implementation("androidx.activity:activity-compose:1.5.1")
+
+    with(ComposeDestination){
+
+        implementation(composeDestination)
+        ksp(composeDestinationPlugin)
+    }
+    with(Material3){
+        implementation(material3)
+        implementation(window)
+    }
+    with(Accompanist){
+        implementation(coil)
+        implementation(webview)
+    }
+    with(Compose){
+        implementation(util){
+
+        }
+        implementation(composeActivity) {
+            because("We are not using  xml its better to use compose activity ")
+        }
+
+
+        implementation(composeToolingDebug){
+            because("Supports preview of composables")
+        }
+
+        debugImplementation(composeToolingDebug) {
+
+            because("Supports previews and other tooling stuff." )
+        }
+        implementation(composeUI) {
+            because("Supports compose ")
+        }
+    }
+
+    implementation(Koin.koinAndroid)
 }

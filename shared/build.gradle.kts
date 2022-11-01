@@ -2,6 +2,9 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    kotlin(KotlinPlugins.serialization) version "1.7.10"
+    id(Realm.pluginId)
+    id(KotlinPlugins.parcelize)
 }
 
 kotlin {
@@ -40,6 +43,10 @@ kotlin {
                 //Coroutines
                 implementation(Coroutines.coroutines)
 
+                implementation(Koin.koin)
+
+                api(Moko.mokoMVVMCore)
+
             }
         }
         val commonTest by getting {
@@ -47,7 +54,14 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation(Ktor.clientAndroid)
+                implementation(Koin.koinAndroid)
+
+            }
+        }
+
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
