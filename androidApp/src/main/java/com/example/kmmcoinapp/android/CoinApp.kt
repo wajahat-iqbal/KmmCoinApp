@@ -11,7 +11,6 @@ class CoinApp : Application(){
         super.onCreate()
         initKoin(baseUrl = "https://pro-api.coinmarketcap.com/v1", enableNetworkLogs = true) {
             androidContext(this@CoinApp)
-            // androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.INFO)
             modules(
                 listOf(module {
                     /**
